@@ -2,14 +2,27 @@ function ConvertHandler() {
   
   this.getNum = function(input) {
     let result;
-    
-    return result;
+    const numRegex = /[.\d\/]+/g;
+    if(input.includes('/')) {
+      let num = input.split('/');
+      if(num.length > 2) {
+        return 'invalid number';
+      } else {
+        let wholeNumber = input.match(numRegex);
+        let divisor = wholeNumber[0].split('/');
+        result = divisor[0] / divisor[1];
+        return result.toFixed(5);
+      }
+    }
+    result = input.match(numRegex) || 1;
+    return result[0] || result;
   };
   
   this.getUnit = function(input) {
     let result;
-    
-    return result;
+    const numRegex = /[a-zA-Z]+/g;
+    result = input.match(numRegex);
+    return result[0];
   };
   
   this.getReturnUnit = function(initUnit) {
