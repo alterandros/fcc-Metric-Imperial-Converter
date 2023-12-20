@@ -6,7 +6,7 @@ function ConvertHandler() {
     if(input.includes('/')) {
       let num = input.split('/');
       if(num.length > 2) {
-        return 'invalid number';
+        return undefined;
       } else {
         let wholeNumber = input.match(numRegex);
         let divisor = wholeNumber[0].split('/');
@@ -14,15 +14,17 @@ function ConvertHandler() {
         return result.toFixed(5);
       }
     }
-    result = input.match(numRegex) || 1;
-    return result[0] || result;
+    result = input.match(numRegex) || [1];
+    return result[0];
   };
   
   this.getUnit = function(input) {
     let result;
     const numRegex = /[a-zA-Z]+/g;
     result = input.match(numRegex);
-    return result[0];
+    const validUnits = ["L","l","MI","mi","KM","km","gal","GAL","KG","kg","LBS","lbs"];
+    const isValid = (validUnits.indexOf(result[0]) > -1);
+    return isValid ? result[0] : undefined;
   };
   
   this.getReturnUnit = function(initUnit) {
